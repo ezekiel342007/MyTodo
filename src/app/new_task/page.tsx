@@ -4,7 +4,6 @@ import { useState } from "react";
 import PajamasHamburger from "@/components/icons/pajamas-hamburger";
 import { Popover, PopoverContent, PopoverTrigger } from "@radix-ui/react-popover";
 import LetsIconsDateTodayDuotoneLine from "@/components/icons/lets-icon-date-today-duotone-line";
-import IconamoonArrowDown2 from "@/components/icons/icon-moon-arrow-down";
 import MingcuteTimeLine from "@/components/icons/mingcute-time-line";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
@@ -18,6 +17,10 @@ export default function Page() {
   const [time, setTime] = useState<string | undefined>(undefined);
   const [name, setName] = useState<string | undefined>(undefined);
   const [category, setCategory] = useState<string | undefined>(undefined);
+
+  function submitAction() {
+
+  }
 
   return (
     <div className="bg-gray-200 h-full">
@@ -96,6 +99,10 @@ export default function Page() {
         <div className="bg-white flex flex-row justify-between p-4 rounded-xl" onClick={() => { setImportant(!important) }}>
           Important
           <input checked={important} type="checkbox" size={20} color="#000" />
+        </div>
+
+        <div className="flex flex-row justify-center">
+          <button onClick={submitAction} className="p-4 rounded-full text-2xl bg-blue-900 text-white w-30">Done</button>
         </div>
       </div>
     </div >

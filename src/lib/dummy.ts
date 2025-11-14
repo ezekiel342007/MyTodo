@@ -30,3 +30,42 @@ export const Todo = [
     important: false
   }
 ]
+
+export const Tracks = [
+  {
+    title: "Work",
+    itemCount: 8,
+    color: "#ce42f5"
+  },
+  {
+    title: "Do Assignment",
+    itemCount: 3,
+    color: "#ce42f5"
+  },
+  {
+    title: "Moday rush",
+    itemCount: 12,
+    color: "#ce42f5"
+  },
+  {
+    title: "Project tasks",
+    itemCount: 6,
+    color: "#ce42f5"
+  },
+  {
+    title: "New Sprint",
+    itemCount: 8,
+    color: "#ce42f5"
+  },
+  {
+    title: "Break",
+    itemCount: 3,
+    color: "#ce42f5"
+  },
+  {
+    title: "Chores",
+    itemCount: 2,
+    color: "#ce42f5"
+  },
+
+]
