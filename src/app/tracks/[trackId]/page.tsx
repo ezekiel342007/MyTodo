@@ -3,9 +3,11 @@ import PajamasHamburger from "@/components/icons/pajamas-hamburger";
 import { Todo } from "@/lib/dummy";
 import Link from "next/link";
 
-export default function Page() {
+export default function Page({ params }: { params: { trackId: string } }) {
+  const trackId = params.trackId;
+
   return (
-    <div className="bg-gray-200">
+    <div className="bg-gray-200 h-[100%]">
       <div className="bg-blue-900 flex flex-col gap-6 pt-10 h-60 text-gray-100 rounded-br-[170px] p-4 max-w-full">
         <div>
           <PajamasHamburger color="#fff" size={40} />
@@ -16,7 +18,7 @@ export default function Page() {
         </div>
       </div>
       <div className="mt-5 p-4">
-        <Link href="/new_task">
+        <Link href={`${trackId}/new_task`}>
           <TodoSlot addItem={true} important={false} title="" date="" category="" />
         </Link>
 
@@ -26,6 +28,6 @@ export default function Page() {
           })
         }
       </div>
-    </div>
+    </div >
   );
 }

@@ -8,7 +8,7 @@ interface TrackSlotProps {
 
 export default function TrackSlot({ title, itemCount, color }: TrackSlotProps) {
   return (
-    <div className="bg-white flex flex-row justify-between rounded-2xl px-4 p-2">
+    <div className="bg-white flex flex-row justify-between rounded-2xl p-4">
       <div>
         <h2 className="font-semibold">{title}</h2>
         <p className="text-sm font-light">{itemCount} Items</p>
