@@ -1,6 +1,7 @@
 import TrackSlot from "@/components/molecules/track-slot";
 import PajamasHamburger from "@/components/icons/pajamas-hamburger";
 import { Tracks } from "@/lib/dummy";
+import Link from "next/link";
 import IconParkOutlineAdd from "@/components/icons/icon-park-outline-add";
 
 export default function Home() {
@@ -19,20 +20,22 @@ export default function Home() {
       <div className="mt-3 p-4">
         <h2 className="text-2xl font-semibold">Tracks</h2>
 
-        <div className="bg-white flex mt-4 flex-row justify-between rounded-2xl px-4 p-2">
-          <div className="flex flex-col justify-center">
-            <h2 className="font-semibold text-gray-400">Add a new list...</h2>
-          </div>
+        <Link href={"tracks/new_track"}>
+          <div className="bg-white flex mt-4 flex-row justify-between rounded-2xl px-4 p-2">
+            <div className="flex flex-col justify-center">
+              <h2 className="font-semibold text-gray-400">Add a new list...</h2>
+            </div>
 
-          <div className="flex flex-col justify-center">
-            <IconParkOutlineAdd size={50} color="#99a1af" />
+            <div className="flex flex-col justify-center">
+              <IconParkOutlineAdd size={50} color="#99a1af" />
+            </div>
           </div>
-        </div>
+        </Link>
 
         <div className="mt-4 flex flex-col gap-4">
           {
             Tracks.map((track) => {
-              return <TrackSlot title={track.title} itemCount={track.itemCount} color={track.color} key={track.title} />
+              return <Link key={track.id} href={`tracks/${track.id}`}><TrackSlot title={track.title} itemCount={track.itemCount} color={track.color} /></Link>
             }
             )
           }
