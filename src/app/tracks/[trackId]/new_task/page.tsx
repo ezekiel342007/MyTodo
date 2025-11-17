@@ -23,7 +23,7 @@ export default function Page() {
   }
 
   return (
-    <div className="bg-gray-200 h-full">
+    <div className="bg-gray-200 h-[100%]">
       <div>
         <div className="bg-blue-900 flex flex-col gap-6 pt-10 h-60 text-gray-100 rounded-br-[170px] p-4 max-w-full">
           <div>
@@ -98,7 +98,7 @@ export default function Page() {
 
         <div className="bg-white flex flex-row justify-between p-4 rounded-xl" onClick={() => { setImportant(!important) }}>
           Important
-          <input checked={important} type="checkbox" size={20} color="#000" />
+          <input checked={important} type="checkbox" size={20} defaultChecked color="#000" />
         </div>
 
         <div className="flex flex-row justify-center">
