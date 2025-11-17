@@ -36,7 +36,6 @@ export default function TodoSlot({ title, date, category, addItem, important }: 
           }
         </div>
       </div>
-
       <div className="flex flex-col justify-center">
         <input type="checkbox" className="h-6 border-blue-600 border-8 w-6 text-8xl" />
       </div>

@@ -21,7 +21,6 @@ export default function Page({ params }: { params: { trackId: string } }) {
         <Link href={`${trackId}/new_task`}>
           <TodoSlot addItem={true} important={false} title="" date="" category="" />
         </Link>
-
         {
           Todo.map(element => {
             return <TodoSlot key={element.title} important={element.important} addItem={false} title={element.title} date={element.date} category={element.category} />

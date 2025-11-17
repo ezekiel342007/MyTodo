@@ -7,8 +7,6 @@ interface NewTrackProps {
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-
-
 export default function NewTrack({ setOpen }: NewTrackProps) {
   function submitNewTrack(e: FormEvent) {
     setOpen(false);
