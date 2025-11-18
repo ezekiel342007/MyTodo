@@ -3,8 +3,8 @@ import PajamasHamburger from "@/components/icons/pajamas-hamburger";
 import { Todo } from "@/lib/dummy";
 import Link from "next/link";
 
-export default function Page({ params }: { params: { trackId: string } }) {
-  const trackId = params.trackId;
+export default async function Page({ params }: { params: { trackId: string } }) {
+  const trackId = await params.trackId;
 
   return (
     <div className="bg-gray-200 h-[100%]">
