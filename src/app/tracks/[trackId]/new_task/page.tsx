@@ -1,12 +1,12 @@
 "use client";
-import { useState } from "react";
 
-import PajamasHamburger from "@/components/icons/pajamas-hamburger";
+import { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@radix-ui/react-popover";
 import LetsIconsDateTodayDuotoneLine from "@/components/icons/lets-icon-date-today-duotone-line";
 import MingcuteTimeLine from "@/components/icons/mingcute-time-line";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
+import IxUserProfile from "@/components/icons/ix-user-profile";
 
 
 export default function Page() {
@@ -27,7 +27,7 @@ export default function Page() {
       <div>
         <div className="bg-blue-900 flex flex-col gap-6 pt-10 h-60 text-gray-100 rounded-br-[170px] p-4 max-w-full">
           <div>
-            <PajamasHamburger color="#fff" size={40} />
+            <IxUserProfile color="#fff" size={40} />
           </div>
           <div className="mt-5">
             <input
@@ -98,7 +98,7 @@ export default function Page() {
 
         <div className="bg-white flex flex-row justify-between p-4 rounded-xl" onClick={() => { setImportant(!important) }}>
           Important
-          <input checked={important} type="checkbox" size={20} defaultChecked color="#000" />
+          <input checked={important} type="checkbox" size={20} color="#000" />
         </div>
 
         <div className="flex flex-row justify-center">

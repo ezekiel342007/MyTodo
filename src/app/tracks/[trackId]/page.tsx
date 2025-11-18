@@ -1,16 +1,31 @@
-import TodoSlot from "@/components/atoms/todo-slot";
-import PajamasHamburger from "@/components/icons/pajamas-hamburger";
-import { Todo } from "@/lib/dummy";
-import Link from "next/link";
+"use client";
 
-export default async function Page({ params }: { params: { trackId: string } }) {
-  const trackId = await params.trackId;
+import Link from "next/link";
+import { Todo } from "@/lib/dummy";
+import TodoSlot from "@/components/atoms/todo-slot";
+import { useAuth } from "@/components/auth-context";
+import IxUserProfile from "@/components/icons/ix-user-profile";
+import PajamasHamburger from "@/components/icons/pajamas-hamburger";
+
+export default function Page({ params }: { params: { trackId: string } }) {
+  const pageParams = params;
+  const { isAuthenticated } = useAuth();
 
   return (
     <div className="bg-gray-200 h-[100%]">
       <div className="bg-blue-900 flex flex-col gap-6 pt-10 h-60 text-gray-100 rounded-br-[170px] p-4 max-w-full">
-        <div>
+        <div className="w-full flex flex-row justify-between">
           <PajamasHamburger color="#fff" size={40} />
+          <div className="mr-5">
+            {
+              (isAuthenticated) ?
+                <IxUserProfile color="#fff" size={40} />
+                :
+                <Link href={"/login"}>
+                  <IxUserProfile color="#fff" size={40} />
+                </Link>
+            }
+          </div>
         </div>
         <div>
           <h1 className="text-3xl font-semibold">Today: 17 October</h1>
@@ -18,7 +33,7 @@ export default async function Page({ params }: { params: { trackId: string } }) 
         </div>
       </div>
       <div className="mt-5 p-4">
-        <Link href={`${trackId}/new_task`}>
+        <Link href={`${pageParams.trackId}/new_task`}>
           <TodoSlot addItem={true} important={false} title="" date="" category="" />
         </Link>
         {

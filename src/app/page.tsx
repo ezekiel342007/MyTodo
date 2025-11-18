@@ -1,14 +1,17 @@
 "use client";
 
-import TrackSlot from "@/components/molecules/track-slot";
-import PajamasHamburger from "@/components/icons/pajamas-hamburger";
-import { Tracks } from "@/lib/dummy";
-import { useState } from "react";
 import Link from "next/link";
-import IconParkOutlineAdd from "@/components/icons/icon-park-outline-add";
+import { useState } from "react";
+import { Tracks } from "@/lib/dummy";
 import NewTrack from "@/components/atoms/new_track";
+import TrackSlot from "@/components/molecules/track-slot";
+import { useAuth } from "@/components/auth-context";
+import IxUserProfile from "@/components/icons/ix-user-profile";
+import IconParkOutlineAdd from "@/components/icons/icon-park-outline-add";
+import PajamasHamburger from "@/components/icons/pajamas-hamburger";
 
 export default function Home() {
+  const { isAuthenticated } = useAuth();
   const [newTrackOpen, setNewTrackOpen] = useState<boolean>(false);
 
   return (
@@ -16,7 +19,19 @@ export default function Home() {
       <div>
         <div className="bg-blue-900 flex flex-col gap-6 pt-10 h-60 text-gray-100 rounded-br-[170px] p-4 max-w-full">
           <div className="flex flex-row gap-6">
-            <PajamasHamburger color="#fff" size={40} />
+            <div className="w-full flex flex-row justify-between">
+              <PajamasHamburger color="#fff" size={40} />
+              <div className="mr-5">
+                {
+                  (isAuthenticated) ?
+                    <IxUserProfile color="#fff" size={40} />
+                    :
+                    <Link href={"/login"}>
+                      <IxUserProfile color="#fff" size={40} />
+                    </Link>
+                }
+              </div>
+            </div>
           </div>
           <div className="mt-5">
             <h1 className="text-3xl font-semibold">My Todo</h1>
@@ -42,9 +57,10 @@ export default function Home() {
         }
         <div className="mt-4 flex flex-col gap-4">
           {
-            Tracks.map((track) => {
-              return <Link key={track.id} href={`tracks/${track.id}`}><TrackSlot title={track.title} itemCount={track.itemCount} color={track.color} /></Link>
-            }
+            Tracks.map(
+              (track) => {
+                return <Link key={track.id} href={`tracks/${track.id}`}><TrackSlot title={track.title} itemCount={track.itemCount} color={track.color} /></Link>
+              }
             )
           }
         </div>
