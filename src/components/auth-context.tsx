@@ -10,19 +10,19 @@ interface AuthProviderProps {
 interface AuthContextType {
   isAuthenticated: boolean;
   setAuthenticated: Dispatch<SetStateAction<boolean>>,
-  user: User | null,
-  setUser: Dispatch<SetStateAction<User | null>>,
+  user: User | undefined,
+  setUser: Dispatch<SetStateAction<User | undefined>>,
 }
 
 const AuthContext = createContext<AuthContextType>({
   isAuthenticated: false,
-  user: null,
+  user: undefined,
   setUser: () => { },
   setAuthenticated: () => { }
 })
 
 export const AuthContextProvider = ({ children }: AuthProviderProps) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | undefined>(undefined);
   const [isAuthenticated, setAuthenticated] = useState<boolean>(false);
 
   useEffect(() => {

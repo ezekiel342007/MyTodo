@@ -1,14 +1,50 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { User } from "@/lib/types";
+import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/components/auth-context";
+
+async function submitSignUp(email: string, password: string): Promise<User | undefined> {
+  try {
+    const response = fetch(
+      `${process.env.NEXT_PUBLIC_SIGN_IN_ENDPOINT}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password })
+      }
+    )
+
+    const res = await response;
+    if (!res.ok) {
+      console.error("Error ------>>>>>>> ", res.json());
+    }
+    return res.json()
+  } catch (error) {
+    console.error("Error -------->>>>>>>", error);
+  }
+}
 
 export default function Page() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [hasSubmit, setHasSubmit] = useState<boolean>(false);
+
+  const { setUser, setAuthenticated } = useAuth();
+
+  useEffect(
+    () => {
+      if (hasSubmit) {
+        submitSignUp(email, password)
+          .then((user: User | undefined) => { setUser(user); setAuthenticated(true) })
+      }
+    }, [hasSubmit, setAuthenticated, setUser, email, password])
 
   return (
     <>
@@ -24,7 +60,7 @@ export default function Page() {
               <Label htmlFor="password">Password</Label>
               <Input value={password} onChange={(e) => setPassword(e.target.value)} name="password" type="password" />
             </div>
-            <Button type="submit">Submit</Button>
+            <Button onClick={() => setHasSubmit(true)}>Submit</Button>
           </form>
           <div className="mt-2">
             Not registered? <Link href={"/sign_up"}>Sign Up</Link>
