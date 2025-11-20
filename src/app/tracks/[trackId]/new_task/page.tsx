@@ -1,26 +1,70 @@
 "use client";
 
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { TodoSlotProps } from "@/lib/types";
+import { useEffect, useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Calendar } from "@/components/ui/calendar";
+import { redirect } from "next/navigation";
+import IxUserProfile from "@/components/icons/ix-user-profile";
+import MingcuteTimeLine from "@/components/icons/mingcute-time-line";
 import { Popover, PopoverContent, PopoverTrigger } from "@radix-ui/react-popover";
 import LetsIconsDateTodayDuotoneLine from "@/components/icons/lets-icon-date-today-duotone-line";
-import MingcuteTimeLine from "@/components/icons/mingcute-time-line";
-import { Calendar } from "@/components/ui/calendar";
-import { Input } from "@/components/ui/input";
-import IxUserProfile from "@/components/icons/ix-user-profile";
 
+async function submitTask(name: string, category: string, time: string, date: string, important: boolean): Promise<TodoSlotProps | undefined> {
+  try {
+    const response = fetch(
+      `${process.env.NEXT_PUBLIC_CREATE_TASK_ENDPOINT}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ name, category, time, important, date })
+      }
+    );
+
+    const res = await response;
+
+    if (!res.ok) {
+      console.log("Error ------>>>>>>>> ", res.json())
+    }
+
+    return res.json();
+  } catch (error) {
+    console.error("Error ------>>>>>>>> ", error);
+  }
+}
 
 export default function Page() {
   const [dateOpen, setDateOpen] = useState<boolean>(false);
   const [timeOpen, setTimeOpen] = useState<boolean>(false);
   const [important, setImportant] = useState<boolean>(false);
-  const [date, setDate] = useState<Date | undefined>(undefined);
-  const [time, setTime] = useState<string | undefined>(undefined);
-  const [name, setName] = useState<string | undefined>(undefined);
-  const [category, setCategory] = useState<string | undefined>(undefined);
+  const [date, setDate] = useState<Date>(new Date());
+  const [time, setTime] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [category, setCategory] = useState<string>("");
+  const [hasSubmitted, setHasSubmitted] = useState<boolean>(false);
 
-  function submitAction() {
+  const router = useRouter();
+  const { pageId } = router.query as { pageId: string };
 
-  }
+  useEffect(
+    () => {
+      if (hasSubmitted) {
+        submitTask(name, category, time, date.toLocaleDateString(), important)
+          .then(
+            (e) => {
+              if (e) {
+                alert("New task added");
+                redirect(`/tracks/${pageId}`);
+              }
+            }
+          );
+      }
+    }, [hasSubmitted, name, category, time, date, important, pageId]
+  );
 
   return (
     <div className="bg-gray-200 h-[100%]">
@@ -69,7 +113,12 @@ export default function Page() {
               selected={date}
               captionLayout="dropdown"
               onSelect={
-                (date) => { setDate(date); setDateOpen(false) }}
+                (date) => {
+                  if (date) {
+                    setDate(date); setDateOpen(false)
+                  }
+                }
+              }
             >
 
             </Calendar>
@@ -102,7 +151,7 @@ export default function Page() {
         </div>
 
         <div className="flex flex-row justify-center">
-          <button onClick={submitAction} className="p-4 rounded-full text-2xl bg-blue-900 text-white w-30">Done</button>
+          <button onClick={() => setHasSubmitted(true)} className="p-4 rounded-full text-2xl bg-blue-900 text-white w-30">Done</button>
         </div>
       </div>
     </div >

@@ -1,13 +1,6 @@
-import { categoryMap } from "@/lib/types";
+import { categoryMap, TodoSlotProps } from "@/lib/types";
 import IconParkOutlineAdd from "../icons/icon-park-outline-add"
 
-interface TodoSlotProps {
-  title: string;
-  date: string;
-  category: string;
-  addItem: boolean;
-  important: boolean;
-}
 
 export default function TodoSlot({ title, date, category, addItem, important }: TodoSlotProps) {
   const categoryColor: string = categoryMap[category];

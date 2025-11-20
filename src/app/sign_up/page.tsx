@@ -1,11 +1,12 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
+import { User } from "@/lib/types";
+import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { User } from "@/lib/types";
 import { useAuth } from "@/components/auth-context";
+import BackButton from "@/components/atoms/back-button";
 
 async function submitSignUp(username: string, email: string, password: string): Promise<User | undefined> {
   try {
@@ -49,7 +50,9 @@ export default function Page() {
   return (
     <>
       <div className="flex bg-gray-200 w-full justify-center fixed h-full">
-        <div className="bg-blue-900 h-[50%] p-10 w-full"></div>
+        <div className="bg-blue-900 h-[50%] flex justify-end p-10 w-full">
+          <BackButton />
+        </div>
         <div className="rounded-2xl top-50 absolute bg-white p-4">
           <form className="flex flex-col gap-5">
             <div className="flex flex-col gap-2">
