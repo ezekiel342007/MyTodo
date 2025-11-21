@@ -4,35 +4,40 @@ export const Todo = [
     title: "Careers advice appointment",
     date: "17/10 at 11:00-11:30",
     category: "Work",
-    important: true
+    important: true,
+    done: false
   },
   {
     id: "8c6d3125-6cf1-47cd-a7bb-752dba5af254",
     title: "Return library books",
     date: "17/10 at any time",
     category: "Fun",
-    important: true
+    important: true,
+    done: true
   },
   {
     id: "4b9b18ce-eef0-48da-9df2-8aadf01692aa",
     title: "Finish group presentation slides",
     date: "17/10 at 13:00-15:00",
     category: "Work",
-    important: false
+    important: false,
+    done: true
   },
   {
     id: "e3cdaaae-641d-42c2-83e5-31486c02e1e7",
     title: "Warhammer painting",
     date: "17/10 at 18:00-20:00",
     category: "Fun",
-    important: false
+    important: false,
+    done: false
   },
   {
     id: "b0c04188-ef76-43ae-bf2e-03d7fb8f9737",
     title: "Take out the rubbish",
     date: "17/10 at any time",
     category: "Home",
-    important: false
+    important: false,
+    done: false
   }
 ]
 

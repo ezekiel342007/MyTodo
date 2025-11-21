@@ -1,5 +1,6 @@
 "use client";
 
+import { use } from "react";
 import Link from "next/link";
 import { Todo } from "@/lib/dummy";
 import TodoSlot from "@/components/atoms/todo-slot";
@@ -8,14 +9,17 @@ import IxUserProfile from "@/components/icons/ix-user-profile";
 import PajamasHamburger from "@/components/icons/pajamas-hamburger";
 
 export default function Page({ params }: { params: { trackId: string } }) {
-  const pageParams = params;
+  const pageParams = use(params);
   const { isAuthenticated } = useAuth();
+
 
   return (
     <div className="bg-gray-200 h-[100%]">
       <div className="bg-blue-900 flex flex-col gap-6 pt-10 h-60 text-gray-100 rounded-br-[170px] p-4 max-w-full">
         <div className="w-full flex flex-row justify-between">
-          <PajamasHamburger color="#fff" size={40} />
+          <Link href={"/"}>
+            <PajamasHamburger color="#fff" size={40} />
+          </Link>
           <div className="mr-5">
             {
               (isAuthenticated) ?
@@ -34,11 +38,11 @@ export default function Page({ params }: { params: { trackId: string } }) {
       </div>
       <div className="mt-5 p-4">
         <Link href={`${pageParams.trackId}/new_task`}>
-          <TodoSlot addItem={true} important={false} title="" date="" category="" />
+          <TodoSlot addItem={true} done={false} important={false} title="" date="" category="" />
         </Link>
         {
           Todo.map(element => {
-            return <TodoSlot key={element.title} important={element.important} addItem={false} title={element.title} date={element.date} category={element.category} />
+            return <TodoSlot key={element.title} done={element.done} important={element.important} addItem={false} title={element.title} date={element.date} category={element.category} />
           })
         }
       </div>

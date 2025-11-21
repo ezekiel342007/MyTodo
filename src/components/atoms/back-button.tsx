@@ -6,8 +6,8 @@ export default function BackButton() {
   const router = useRouter();
 
   return (
-    <Button onClick={() => { router.back() }} variant={"ghost"}>
-      <MaterialSymbolsArrowBackIosRounded size={50} />
+    <Button onClick={() => { router.back() }} variant={"ghost"} className="hover:bg-none">
+      <MaterialSymbolsArrowBackIosRounded size={60} />
     </Button>
   )
 }

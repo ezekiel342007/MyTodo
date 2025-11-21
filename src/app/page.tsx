@@ -20,7 +20,9 @@ export default function Home() {
         <div className="bg-blue-900 flex flex-col gap-6 pt-10 h-60 text-gray-100 rounded-br-[170px] p-4 max-w-full">
           <div className="flex flex-row gap-6">
             <div className="w-full flex flex-row justify-between">
-              <PajamasHamburger color="#fff" size={40} />
+              <Link href={"/"}>
+                <PajamasHamburger color="#fff" size={40} />
+              </Link>
               <div className="mr-5">
                 {
                   (isAuthenticated) ?

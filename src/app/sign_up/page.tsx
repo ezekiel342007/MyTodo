@@ -7,6 +7,8 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/components/auth-context";
 import BackButton from "@/components/atoms/back-button";
+import PajamasHamburger from "@/components/icons/pajamas-hamburger";
+import Link from "next/link";
 
 async function submitSignUp(username: string, email: string, password: string): Promise<User | undefined> {
   try {
@@ -50,22 +52,28 @@ export default function Page() {
   return (
     <>
       <div className="flex bg-gray-200 w-full justify-center fixed h-full">
-        <div className="bg-blue-900 h-[50%] flex justify-end p-10 w-full">
-          <BackButton />
+        <div className="bg-blue-900 h-[50%] flex justify-between p-10 w-full">
+          <Link href={"/"}>
+            <PajamasHamburger color="#fff" size={40} />
+          </Link>
+
+          <div className="mr-5">
+            <BackButton />
+          </div>
         </div>
         <div className="rounded-2xl top-50 absolute bg-white p-4">
           <form className="flex flex-col gap-5">
             <div className="flex flex-col gap-2">
               <Label htmlFor="username">Username</Label>
-              <Input value={username} onChange={(e) => setUsername(e.target.value)} name="username" type="text" />
+              <Input required value={username} onChange={(e) => setUsername(e.target.value)} name="username" type="text" />
             </div>
             <div className="flex flex-col gap-2">
               <Label htmlFor="email">Email</Label>
-              <Input value={email} onChange={(e) => setEmail(e.target.value)} name="email" type="email" />
+              <Input required value={email} onChange={(e) => setEmail(e.target.value)} name="email" type="email" />
             </div>
             <div className="flex flex-col gap-2">
               <Label htmlFor="password">Password</Label>
-              <Input value={password} onChange={(e) => setPassword(e.target.value)} name="password" type="password" />
+              <Input required value={password} onChange={(e) => setPassword(e.target.value)} name="password" type="password" />
             </div>
             <Button onClick={() => setHasSubmit(true)}>Submit</Button>
           </form>

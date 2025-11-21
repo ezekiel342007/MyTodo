@@ -10,6 +10,14 @@ export interface TodoSlotProps {
   category: string;
   addItem: boolean;
   important: boolean;
+  done: boolean;
+}
+
+export interface CreateTaskType {
+  title: string;
+  date: string;
+  category: string;
+  important: boolean;
 }
 
 export type User = {

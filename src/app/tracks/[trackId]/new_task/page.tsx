@@ -1,17 +1,20 @@
 "use client";
 
-import { useRouter } from "next/router";
-import { TodoSlotProps } from "@/lib/types";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { CreateTaskType } from "@/lib/types";
 import { Input } from "@/components/ui/input";
 import { Calendar } from "@/components/ui/calendar";
-import { redirect } from "next/navigation";
+import BackButton from "@/components/atoms/back-button";
 import IxUserProfile from "@/components/icons/ix-user-profile";
 import MingcuteTimeLine from "@/components/icons/mingcute-time-line";
 import { Popover, PopoverContent, PopoverTrigger } from "@radix-ui/react-popover";
 import LetsIconsDateTodayDuotoneLine from "@/components/icons/lets-icon-date-today-duotone-line";
+import { useAuth } from "@/components/auth-context";
+import CarbonCheckbox from "@/components/icons/carbon-checkbox";
+import { FamiconsCheckboxOutline } from "@/components/icons/famicons-checkbox-outline";
 
-async function submitTask(name: string, category: string, time: string, date: string, important: boolean): Promise<TodoSlotProps | undefined> {
+async function submitTask(name: string, category: string, time: string, date: string, important: boolean): Promise<CreateTaskType | undefined> {
   try {
     const response = fetch(
       `${process.env.NEXT_PUBLIC_CREATE_TASK_ENDPOINT}`,
@@ -48,7 +51,7 @@ export default function Page() {
   const [hasSubmitted, setHasSubmitted] = useState<boolean>(false);
 
   const router = useRouter();
-  const { pageId } = router.query as { pageId: string };
+  const { isAuthenticated, user } = useAuth();
 
   useEffect(
     () => {
@@ -58,23 +61,33 @@ export default function Page() {
             (e) => {
               if (e) {
                 alert("New task added");
-                redirect(`/tracks/${pageId}`);
+                router.back();
               }
             }
           );
       }
-    }, [hasSubmitted, name, category, time, date, important, pageId]
+    }, [hasSubmitted, name, category, time, date, important, router]
   );
 
   return (
     <div className="bg-gray-200 h-[100%]">
       <div>
         <div className="bg-blue-900 flex flex-col gap-6 pt-10 h-60 text-gray-100 rounded-br-[170px] p-4 max-w-full">
-          <div>
-            <IxUserProfile color="#fff" size={40} />
+          <div className="flex justify-between">
+            <div className="flex gap-3 flex-row">
+              <IxUserProfile color="#fff" size={40} />
+              {
+                (isAuthenticated) ?
+                  <p>{user?.username}</p> : <p></p>
+              }
+            </div>
+            <div className="mr-5">
+              <BackButton />
+            </div>
           </div>
           <div className="mt-5">
             <input
+              required
               className="w-50 text-4xl border-none focus:ring-0 focus:outline-none"
               type="text"
               placeholder="New Task"
@@ -136,6 +149,7 @@ export default function Page() {
             <Input
               type="time"
               id="time-picker"
+              required
               placeholder="Time"
               step="1"
               defaultValue="10:30:00"
@@ -147,7 +161,10 @@ export default function Page() {
 
         <div className="bg-white flex flex-row justify-between p-4 rounded-xl" onClick={() => { setImportant(!important) }}>
           Important
-          <input checked={important} type="checkbox" size={20} color="#000" />
+          {/* <input checked={important} type="checkbox" size={20} color="#000" /> */}
+          {
+            (important) ? <FamiconsCheckboxOutline color="#000" size={20} /> : <CarbonCheckbox color="#000" size={20} />
+          }
         </div>
 
         <div className="flex flex-row justify-center">
